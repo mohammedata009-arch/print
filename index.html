@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V-2030 | المنصة الوطنية لتوثيق العقود</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    :root {
+        --gold: #c5a059;
+        --dark-blue: #0f172a;
+        --royal-blue: #1e293b;
+        --success: #10b981;
+        --glass: rgba(255, 255, 255, 0.95);
+    }
+
+    body {
+        font-family: 'Cairo', sans-serif;
+        background: radial-gradient(circle at top right, #1e293b, #0f172a);
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+        color: #333;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    /* هيدر 2030 الاحترافي */
+    .v2030-header {
+        text-align: center;
+        color: white;
+        margin-bottom: 40px;
+    }
+
+    .v2030-header h1 {
+        font-weight: 900;
+        font-size: 2.5em;
+        margin: 10px 0;
+        background: linear-gradient(45deg, #fff, var(--gold));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .badge-certified {
+        background: var(--gold);
+        color: var(--dark-blue);
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 0.8em;
+        text-transform: uppercase;
+    }
+
+    /* عدادات القوة */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 20px;
+        border-radius: 20px;
+        text-align: center;
+        color: white;
+    }
+
+    .stat-card i { color: var(--gold); font-size: 1.5em; margin-bottom: 10px; }
+    .stat-val { display: block; font-size: 1.6em; font-weight: 800; color: var(--gold); }
+
+    /* الكارد الرئيسي */
+    .main-card {
+        background: var(--glass);
+        border-radius: 30px;
+        padding: 40px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        border: 2px solid var(--gold);
+        position: relative;
+    }
+
+    .motivation-text {
+        text-align: center;
+        background: #f8fafc;
+        padding: 15px;
+        border-radius: 15px;
+        border-right: 5px solid var(--gold);
+        margin-bottom: 25px;
+        font-style: italic;
+    }
+
+    /* تنسيق الجداول والحقول */
+    .legal-table { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
+    .legal-table td { padding: 5px; }
+    .label-box {
+        background: #f1f5f9;
+        padding: 12px 20px;
+        border-radius: 12px 0 0 12px;
+        font-weight: 700;
+        color: var(--royal-blue);
+        width: 30%;
+        border-right: 4px solid var(--gold);
+    }
+
+    input {
+        width: 100%; padding: 14px;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 12px;
+        font-family: 'Cairo';
+        transition: 0.3s;
+    }
+
+    input:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 10px rgba(197, 160, 89, 0.2); }
+
+    .fee-section {
+        background: var(--dark-blue);
+        color: white;
+        padding: 20px;
+        border-radius: 20px;
+        text-align: center;
+        margin: 30px 0;
+    }
+
+    .fee-amount { font-size: 1.8em; color: var(--gold); font-weight: 900; }
+
+    .btn-lux {
+        background: linear-gradient(45deg, var(--gold), #8e6d2a);
+        color: white;
+        width: 100%;
+        padding: 20px;
+        border: none;
+        border-radius: 15px;
+        font-size: 1.2em;
+        font-weight: 900;
+        cursor: pointer;
+        transition: 0.4s;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .btn-lux:hover { transform: scale(1.02); box-shadow: 0 15px 30px rgba(197, 160, 89, 0.4); }
+
+    .hidden { display: none; }
+
+    @media (max-width: 600px) {
+        .legal-table td { display: block; width: 100%; }
+        .label-box { width: 100%; border-radius: 12px; margin-bottom: 5px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="v2030-header">
+        <span class="badge-certified"><i class="fas fa-check-circle"></i> إصدار 2030 المعتمد</span>
+        <h1>المنصة الرقمية للسادة المحامين</h1>
+        <p>التكنولوجيا في خدمة العدالة</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <i class="fas fa-user-tie"></i>
+            <span class="stat-val" data-target="20000">0</span>
+            <span>زميل مشترك</span>
+        </div>
+        <div class="stat-item stat-card" style="background: rgba(16, 185, 129, 0.2);">
+            <i class="fas fa-circle" style="color: #10b981; font-size: 0.6em;"></i>
+            <span class="stat-val" style="color: #10b981;">142</span>
+            <span>متصل الآن</span>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-file-invoice"></i>
+            <span class="stat-val" data-target="95000">0</span>
+            <span>عقد ناجح</span>
+        </div>
+    </div>
+
+    <div class="main-card">
+        <div id="login-step">
+            <div class="motivation-text">
+                "المحاماة رسالة سامية، ونحن هنا لنجعل الجزء الإجرائي أسرع وأكثر دقة."
+            </div>
+            <h3 style="text-align: center; margin-bottom: 25px;">دخول بوابة التوثيق الآمنة</h3>
+            <input id="lawyer_fullname" placeholder="الاسم الكامل للأستاذ المحامي" style="margin-bottom: 20px;">
+            <button class="btn-lux" onclick="startV2030()">دخول المنصة <i class="fas fa-arrow-left"></i></button>
+        </div>
+
+        <div id="system-step" class="hidden">
+            <h3 id="lawyer_title" style="color: var(--royal-blue); text-align: center;"></h3>
+            
+            <div class="notice-box motivation-text" style="background: #fffbeb; font-style: normal;">
+                <i class="fas fa-bolt" style="color: var(--gold);"></i> 
+                <b>تنبيه ذكي:</b> بمجرد ضغطك على "اعتماد"، سيقوم النظام بتوليد صياغة قانونية رصينة تحفظ حقوق كافة الأطراف.
+            </div>
+
+            <table class="legal-table">
+                <tr><td class="label-box">اسم البائع</td><td><input id="s_name"></td></tr>
+                <tr><td class="label-box">رقم الهوية</td><td><input id="s_id"></td></tr>
+                <tr><td class="label-box">اسم المشتري</td><td><input id="b_name"></td></tr>
+                <tr><td class="label-box">رقم الهوية</td><td><input id="b_id"></td></tr>
+                <tr><td class="label-box">الشاهد الأول</td><td><input id="w1"></td></tr>
+                <tr><td class="label-box">الشاهد الثاني</td><td><input id="w2"></td></tr>
+                <tr><td class="label-box">رقم التوثيق</td><td><input id="doc_no"></td></tr>
+                <tr><td class="label-box">التاريخ نصاً</td><td><input id="doc_date" placeholder="مثلاً: الأول من مارس"></td></tr>
+                <tr><td class="label-box">بيانات العقار</td><td><input id="land_details" placeholder="القطعة، المربع، المساحة"></td></tr>
+                <tr><td class="label-box">مبلغ البيع</td><td><input id="price_total"></td></tr>
+            </table>
+
+            <div class="fee-section">
+                <span>رسوم التوثيق واستلام العقد الجاهز (PDF)</span>
+                <div class="fee-amount">10,000 جنيه سوداني</div>
+                <small>دفع آمن - استلام فوري</small>
+            </div>
+
+            <button class="btn-lux" onclick="sendV2030()">
+                <i class="fab fa-whatsapp"></i> اعتماد وإرسال لمركز التوثيق
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function startV2030() {
+    const name = document.getElementById('lawyer_fullname').value;
+    if(name.length < 5) { alert("يرجى إدخال الاسم كاملاً"); return; }
+    document.getElementById('login-step').classList.add('hidden');
+    document.getElementById('system-step').classList.remove('hidden');
+    document.getElementById('lawyer_title').innerText = `الأستاذ المحامي: ${name}`;
+}
+
+function animateStats() {
+    const stats = document.querySelectorAll('.stat-val[data-target]');
+    stats.forEach(s => {
+        const target = +s.getAttribute('data-target');
+        let count = 0;
+        const inc = target / 40;
+        const update = () => {
+            if(count < target) {
+                count += inc;
+                s.innerText = Math.ceil(count).toLocaleString() + "+";
+                setTimeout(update, 20);
+            } else {
+                s.innerText = target.toLocaleString() + "+";
+            }
+        };
+        update();
+    });
+}
+
+window.onload = animateStats;
+
+function sendV2030() {
+    const phone = "0901946410";
+    const get = id => document.getElementById(id).value || "غير مسجل";
+    const lawyer = document.getElementById('lawyer_fullname').value;
+
+    const msg = `🏛️ *نظام التوثيق الرقمي - إصدار 2030* \n` +
+                `━━━━━━━━━━━━━━━━\n` +
+                `⚖️ *المحامي المعتمد:* أ. ${lawyer}\n` +
+                `📝 *رقم التوثيق:* ${get('doc_no')}\n` +
+                `📅 *التاريخ:* ${get('doc_date')}\n` +
+                `━━━━━━━━━━━━━━━━\n` +
+                `👤 *طرف أول (بائع):* ${get('s_name')}\n` +
+                `🆔 *هوية:* ${get('s_id')}\n` +
+                `👤 *طرف ثاني (مشتري):* ${get('b_name')}\n` +
+                `🆔 *هوية:* ${get('b_id')}\n` +
+                `📍 *العقار:* ${get('land_details')}\n` +
+                `💰 *القيمة:* ${get('price_total')}\n` +
+                `👥 *الشهود:* ${get('w1')} / ${get('w2')}\n` +
+                `━━━━━━━━━━━━━━━━\n` +
+                `✅ *إقرار:* أوافق على دفع الرسوم (10,000 ج) لاستلام نسخة العقد المعتمدة.`;
+
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+</script>
+
+</body>
+</html>
