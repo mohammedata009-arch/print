@@ -3,152 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة البرامج التخصصية - اختبار الذكاء الاصطناعي</title>
+    <title>اختبار التكنولوجيا المرح - منصة البرامج التخصصية</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --success: #27ae60;
-            --danger: #e74c3c;
-            --light: #f4f7f6;
+            --bg-color: #6c5ce7;
+            --card-bg: #ffffff;
+            --accent: #fdcb6e;
+            --success: #00b894;
+            --error: #d63031;
         }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light);
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
+            overflow-x: hidden;
         }
-        .quiz-container {
-            background: white;
+
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            width: 90%;
+            max-width: 500px;
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 600px;
-            width: 100%;
             text-align: center;
+            position: relative;
         }
-        header {
-            border-bottom: 2px solid var(--secondary);
+
+        .platform-header {
+            background: #2d3436;
+            color: white;
+            padding: 10px;
+            border-radius: 15px;
             margin-bottom: 20px;
-            padding-bottom: 10px;
         }
-        .header-title { color: var(--primary); margin: 0; font-size: 24px; }
-        .admin-name { color: var(--secondary); font-weight: bold; }
-        .question { font-size: 1.2rem; margin-bottom: 20px; color: #333; }
-        .options { display: grid; gap: 10px; }
-        button {
-            padding: 12px;
-            border: 2px solid var(--secondary);
-            background: white;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 1rem;
+
+        .q-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
         }
-        button:hover { background: var(--secondary); color: white; }
-        .feedback {
-            margin-top: 20px;
+
+        .option-btn {
+            display: block;
+            width: 100%;
             padding: 15px;
-            border-radius: 8px;
-            display: none;
+            margin: 10px 0;
+            border: 2px solid #dfe6e9;
+            border-radius: 50px;
+            background: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: bold;
         }
-        .info-box { background: #e8f4fd; border-right: 5px solid var(--secondary); padding: 10px; margin-top: 10px; font-size: 0.9rem; }
-        .cta {
-            margin-top: 30px;
-            padding: 20px;
-            background: #fff3cd;
-            border: 1px dashed #ffc107;
-            border-radius: 10px;
-            display: none;
+
+        .option-btn:hover {
+            transform: scale(1.03);
+            background: #f1f2f6;
         }
-        .price { font-size: 1.5rem; color: #d35400; font-weight: bold; }
+
+        .correct { background: var(--success) !important; color: white; border-color: var(--success); }
+        .wrong { background: var(--error) !important; color: white; border-color: var(--error); }
+
+        .cta-box {
+            display: none;
+            animation: bounceIn 1s;
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            color: #e17055;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .footer-info { font-size: 0.8rem; color: #636e72; margin-top: 15px; }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <header>
-        <h1 class="header-title">منصة البرامج التخصصية</h1>
-        <p>إدارة: <span class="admin-name">محمد طه عطا المنان</span></p>
-    </header>
+    <audio id="sound-correct" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
+    <audio id="sound-wrong" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"></audio>
 
-    <div id="quiz-box">
-        <div id="question-text" class="question">1. ما الفرق بين البيانات والمعلومات؟</div>
-        <div class="options" id="options-container">
-            <button onclick="checkAnswer(0)">البيانات هي الحقائق الخام، والمعلومات هي بيانات تمت معالجتها</button>
-            <button onclick="checkAnswer(1)">لا يوجد فرق بينهما، كلاهما واحد</button>
-            <button onclick="checkAnswer(2)">المعلومات هي ما نكتبه في الكراسة فقط</button>
+    <div class="quiz-card animate__animated animate__fadeIn">
+        <div class="platform-header">
+            <h3 style="margin:0">منصة البرامج التخصصية</h3>
+            <small>إدارة: محمد طه عطا المنان</small>
         </div>
-        <div id="feedback" class="feedback"></div>
-    </div>
 
-    <div id="final-cta" class="cta">
-        <h3>🎉 أحسنت يا بطل!</h3>
-        <p>عالم التكنولوجيا واسع، والذكاء الاصطناعي يبدأ من تعلم الأساسيات.</p>
-        <p><strong>انضم إلينا الآن في كورس برمجة وتصميم المواقع!</strong></p>
-        <p class="price">الرسوم: 50,000 جنيه فقط</p>
-        <p>تواصل معنا عبر واتساب: <a href="https://wa.me/249901946410">0901946410</a></p>
+        <div id="game-body">
+            <img id="q-img" src="https://img.freepik.com/free-vector/data-processing-concept-illustration_114360-4611.jpg" class="q-image">
+            <h2 id="q-text" class="question">ما هي "البيانات" في عالمنا؟</h2>
+            <div id="options">
+                </div>
+        </div>
+
+        <div id="cta-body" class="cta-box">
+            <img src="https://img.freepik.com/free-vector/web-development-programmer-engineering-and-coding-websites-augmented-reality-interface-screens-developer-project-engineer-programming-software-application-design-cartoon-illustration_107791-3863.jpg" class="q-image">
+            <h2 style="color:var(--bg-color)">مبارك! أنت جاهز للانطلاق 🚀</h2>
+            <p>لديك الشغف لتصبح مبرمجاً محترفاً ومصمماً مبدعاً.</p>
+            <div class="price-tag">50,000 ج.س</div>
+            <p>سجل الآن في كورس برمجة وتصميم المواقع</p>
+            <button onclick="window.location.href='https://wa.me/249901946410'" class="option-btn" style="background: #25d366; color:white;">تواصل معنا واتساب 🟢</button>
+        </div>
+
+        <div class="footer-info">0901946410 | الخرطوم</div>
     </div>
-</div>
 
 <script>
-    const questions = [
+    const quizData = [
         {
-            q: "1. ما الفرق بين البيانات والمعلومات؟",
-            options: ["البيانات هي الحقائق الخام، والمعلومات هي بيانات تمت معالجتها", "لا يوجد فرق بينهما، كلاهما واحد", "المعلومات هي ما نكتبه في الكراسة فقط"],
-            correct: 0,
-            info: "💡 معلومة: '50' هي بيان، لكن 'درجة حرارة الغرفة 50' هي معلومة مفيدة!"
+            q: "البيانات مثل (الطوب)، فماذا تسمى (العمارة) الجاهزة؟",
+            img: "https://img.freepik.com/free-vector/information-abstract-concept-vector-illustration-data-management-processing-knowledge-extraction-database-analysis-meaningful-info-digital-literacy-personal-education-abstract-metaphor_335657-2856.jpg",
+            options: ["معلومات", "رماد", "كهرباء"],
+            correct: 0
         },
         {
-            q: "2. ما هو الذكاء الاصطناعي ببساطة؟",
-            options: ["روبوت يريد السيطرة على العالم", "قدرة الآلة على محاكاة ذكاء الإنسان وحل المشكلات", "مجرد تطبيق على الموبايل"],
-            correct: 1,
-            info: "💡 معلومة: الذكاء الاصطناعي هو الذي يقترح عليك الفيديوهات التي تحبها في يوتيوب!"
+            q: "الذكاء الاصطناعي (AI) هو محاولة جعل الحاسوب يحاكي:",
+            img: "https://img.freepik.com/free-vector/artificial-intelligence-ai-concept-illustration_114360-6981.jpg",
+            options: ["المكنسة الكهربائية", "عقل الإنسان", "الآلة الحاسبة القديمة"],
+            correct: 1
         },
         {
-            q: "3. كيف يتم بناء المواقع الإلكترونية؟",
-            options: ["عن طريق السحر", "عن طريق الرسم بالقلم"، "عن طريق لغات البرمجة مثل HTML و CSS"],
-            correct: 2,
-            info: "💡 معلومة: البرمجة هي اللغة التي نتحدث بها مع الحاسوب لنصنع المعجزات!"
+            q: "أفضل لغة لبناء هيكل أي موقع إلكتروني هي:",
+            img: "https://img.freepik.com/free-vector/web-design-production-services-concept-illustration_114360-4910.jpg",
+            options: ["اللغة الصينية", "لغة HTML", "لغة الإشارة"],
+            correct: 1
         }
     ];
 
-    let currentQ = 0;
+    let currentStep = 0;
 
-    function checkAnswer(idx) {
-        const feedback = document.getElementById('feedback');
-        feedback.style.display = 'block';
+    function loadQuestion() {
+        const item = quizData[currentStep];
+        document.getElementById('q-img').src = item.img;
+        document.getElementById('q-text').innerText = item.q;
+        const optionsDiv = document.getElementById('options');
+        optionsDiv.innerHTML = '';
         
-        if (idx === questions[currentQ].correct) {
-            feedback.innerHTML = `<span style="color:green">✅ إجابة صحيحة!</span><div class="info-box">${questions[currentQ].info}</div>`;
-        } else {
-            feedback.innerHTML = `<span style="color:red">❌ للأسف، إجابة غير دقيقة.</span><div class="info-box">${questions[currentQ].info}</div>`;
-        }
-
-        setTimeout(() => {
-            currentQ++;
-            if (currentQ < questions.length) {
-                showQuestion();
-            } else {
-                document.getElementById('quiz-box').style.display = 'none';
-                document.getElementById('final-cta').style.display = 'block';
-            }
-        }, 3500);
-    }
-
-    function showQuestion() {
-        document.getElementById('feedback').style.display = 'none';
-        document.getElementById('question-text').innerText = questions[currentQ].q;
-        const btns = document.querySelectorAll('.options button');
-        btns.forEach((btn, i) => {
-            btn.innerText = questions[currentQ].options[i];
+        item.options.forEach((opt, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn animate__animated animate__fadeInUp';
+            btn.innerText = opt;
+            btn.onclick = () => check(index, btn);
+            optionsDiv.appendChild(btn);
         });
     }
-</script>
 
+    function check(idx, btn) {
+        if(idx === quizData[currentStep].correct) {
+            btn.classList.add('correct');
+            document.getElementById('sound-correct').play();
+            currentStep++;
+            setTimeout(() => {
+                if(currentStep < quizData.length) {
+                    loadQuestion();
+                } else {
+                    finish();
+                }
+            }, 1000);
+        } else {
+            btn.classList.add('wrong');
+            document.getElementById('sound-wrong').play();
+            btn.classList.add('animate__shakeX');
+            setTimeout(() => btn.classList.remove('animate__shakeX'), 500);
+        }
+    }
+
+    function finish() {
+        document.getElementById('game-body').style.display = 'none';
+        document.getElementById('cta-body').style.display = 'block';
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+    }
+
+    loadQuestion();
+</script>
 </body>
 </html>
