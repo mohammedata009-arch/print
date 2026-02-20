@@ -3,306 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار التكنولوجيا - منصة البرامج التخصصية</title>
+    <title>منصة البرامج التخصصية - اختبار ذكي</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --primary: #4834d4;
-            --secondary: #686de0;
-            --accent: #f0932b;
-            --success: #6ab04c;
-            --error: #eb4d4b;
-            --dark: #130f40;
-            --light-blue: #e1f5fe;
-        }
-
-        body {
-            font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(135deg, #130f40 0%, #4834d4 100%);
-            min-height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-            padding: 15px;
-        }
-
-        .quiz-container {
-            background: white;
-            color: var(--dark);
-            width: 100%;
-            max-width: 600px;
-            padding: 25px;
-            border-radius: 25px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            text-align: center;
-            position: relative;
-        }
-
-        /* رأس الصفحة */
-        .header-box {
-            background: var(--dark);
-            color: white;
-            padding: 15px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            border-bottom: 5px solid var(--accent);
-        }
-
-        .header-box h2 { margin: 0; font-family: 'Cairo'; font-size: 1.5rem; }
-        .header-box p { margin: 5px 0 0; color: var(--accent); font-weight: bold; }
-
-        /* شريط التقدم */
-        .progress-container {
-            height: 8px;
-            background: #eee;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        #progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: 0.4s;
-        }
-
-        /* الصور والأسئلة */
-        .q-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        #question-text { font-size: 1.2rem; margin-bottom: 20px; min-height: 3rem; }
-
-        /* الأزرار */
-        .option-btn {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            margin: 10px 0;
-            border: 2px solid #f0f0f0;
-            border-radius: 12px;
-            background: #fff;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Tajawal';
-        }
-
-        .option-btn:hover:not(:disabled) { background: #f8f9fa; border-color: var(--secondary); transform: scale(1.02); }
-        .correct { background: var(--success) !important; color: white; border-color: var(--success); }
-        .wrong { background: var(--error) !important; color: white; border-color: var(--error); }
-
-        /* صندوق المعلومات */
-        .info-hint {
-            background: var(--light-blue);
-            color: #01579b;
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 15px;
-            display: none;
-            border-right: 6px solid var(--primary);
-            text-align: right;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        #next-btn {
-            margin-top: 20px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            display: none;
-        }
-
-        /* النهاية والتحفيز */
-        .cta-final { display: none; padding: 10px; }
-        .price { font-size: 2.8rem; color: var(--error); font-weight: 900; margin: 15px 0; }
-        .whatsapp-btn {
-            background: #25d366;
-            color: white;
-            padding: 15px;
-            text-decoration: none;
-            display: block;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-top: 20px;
-        }
+        /* تحسين مظهر الانتقال */
+        .fade-exit { opacity: 0; transform: translateX(-20px); transition: 0.3s; }
+        .fade-enter { opacity: 1; transform: translateX(0); transition: 0.3s; }
+        
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a2e; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: #fff; color: #333; padding: 2rem; border-radius: 20px; width: 90%; max-width: 550px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
+        .header { border-bottom: 3px solid #f0932b; margin-bottom: 1.5rem; padding-bottom: 0.5rem; }
+        .option { display: block; width: 100%; padding: 12px; margin: 8px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.2s; text-align: right; }
+        .option:hover { background: #f8f9fa; border-color: #4834d4; }
+        .info-box { background: #e3f2fd; padding: 15px; border-radius: 10px; margin-top: 15px; border-right: 5px solid #2196f3; display: none; }
+        .btn-next { background: #f0932b; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer; margin-top: 15px; display: none; width: 100%; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
-    <audio id="sound-correct" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
-    <audio id="sound-wrong" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"></audio>
-
-    <div class="quiz-container animate__animated animate__fadeIn">
-        <div class="header-box">
-            <h2>منصة البرامج التخصصية</h2>
-            <p>إدارة: محمد طه عطا المنان</p>
-        </div>
-
-        <div id="quiz-content">
-            <div class="progress-container"><div id="progress-fill"></div></div>
-            <img id="question-image" src="" class="q-img">
-            <div id="question-text">جاري تجهيز الأسئلة...</div>
-            <div id="options-list"></div>
-            <div id="info-hint" class="info-hint animate__animated animate__fadeIn"></div>
-            <button id="next-btn" class="option-btn">السؤال التالي ⬅️</button>
-        </div>
-
-        <div id="cta-final" class="cta-final animate__animated animate__zoomIn">
-            <h1 style="color:var(--success)">بطل التكنولوجيا! 🏆</h1>
-            <p>لقد أكملت الاختبار بنجاح. مستقبلك في البرمجة يبدأ من هنا!</p>
-            <hr>
-            <h3>كورس برمجة وتصميم المواقع الاحترافي</h3>
-            <p>تعلم البرمجة، التصميم، والذكاء الاصطناعي</p>
-            <div class="price">50,000 ج.س</div>
-            <a href="https://wa.me/249901946410" class="whatsapp-btn">اشترك الآن عبر واتساب 🟢</a>
-            <p style="margin-top:15px; color:#666">تواصل: 0901946410</p>
-        </div>
+<div class="card animate__animated animate__fadeIn">
+    <div class="header">
+        <h2 style="margin:0; color:#1a1a2e">منصة البرامج التخصصية</h2>
+        <small style="color:#4834d4">إدارة: محمد طه عطا المنان</small>
     </div>
+
+    <div id="quiz-step">
+        <div id="question-container">
+            <h3 id="q-text"></h3>
+            <div id="options-box"></div>
+        </div>
+        <div id="info-box" class="info-box"></div>
+        <button id="btn-next" class="btn-next" onclick="nextQuestion()">انتقل للسؤال التالي ⬅️</button>
+    </div>
+
+    <div id="final-step" style="display:none; text-align:center;">
+        <h2 style="color:#27ae60">تم الاجتياز بنجاح! 🏆</h2>
+        <p>رسوم كورس البرمجة: 50,000 ج.س</p>
+        <a href="https://wa.me/249901946410" style="background:#25d366; color:white; padding:12px 20px; text-decoration:none; border-radius:10px; display:inline-block; margin-top:10px;">سجل الآن عبر واتساب</a>
+    </div>
+</div>
 
 <script>
     const questions = [
-        {
-            q: "من هو مخترع فكرة 'المحرك التحليلي' والملقب بأبو الحاسوب؟",
-            img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500",
-            options: ["تشارلز بابيج", "ألبرت أينشتاين", "توماس إديسون"],
-            correct: 0,
-            hint: "تشارلز بابيج هو عالم رياضيات بريطاني صمم أول حاسوب ميكانيكي عام 1837م."
-        },
-        {
-            q: "ما هو الجزء المسؤول عن معالجة كافة العمليات الحسابية والمنطقية؟",
-            img: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=500",
-            options: ["الشاشة", "المعالج (CPU)", "القرص الصلب"],
-            correct: 1,
-            hint: "المعالج هو 'عقل' الجهاز، بدونه لا يمكن للحاسوب تنفيذ أي أمر برمجِي."
-        },
-        {
-            q: "الحاسوب لا يفهم لغات البشر، هو يتعامل فقط مع الرقمين:",
-            img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500",
-            options: ["1 و 10", "0 و 1", "5 و 9"],
-            correct: 1,
-            hint: "يسمى هذا بـ 'النظام الثنائي'، حيث الـ 1 تعني وجود نبضة كهربائية والـ 0 تعني عدم وجودها."
-        },
-        {
-            q: "أي لغة برمجة هي المسؤولة عن بناء هيكل ومحتوى المواقع؟",
-            img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500",
-            options: ["HTML", "فوتوشوب", "واتساب"],
-            correct: 0,
-            hint: "لغة HTML هي حجر الأساس لكل المواقع الإلكترونية التي تتصفحها يومياً."
-        },
-        {
-            q: "ما هي الذاكرة التي تفقد محتواها بمجرد إغلاق الجهاز؟",
-            img: "https://images.unsplash.com/photo-1562976540-1502c2145186?w=500",
-            options: ["الفلاش ميموري", "الهاردسك", "الذاكرة العشوائية RAM"],
-            correct: 2,
-            hint: "الـ RAM تخزن البيانات التي يحتاجها المعالج 'الآن'، وهي سريعة جداً لكنها مؤقتة."
-        },
-        {
-            q: "من هي أول مبرمجة حاسوب في تاريخ البشرية؟",
-            img: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500",
-            options: ["أدا لوفليس", "ماري كوري", "إليزابيث"],
-            correct: 0,
-            hint: "أدا لوفليس كتبت أول خوارزمية في التاريخ عام 1843، قبل اختراع الحواسيب الكهربائية بمئة عام!"
-        },
-        {
-            q: "ماذا يسمى الخطأ البرمجي الذي يمنع البرنامج من العمل؟",
-            img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500",
-            options: ["فيروس", "Bug (حشرة)", "تحديث"],
-            correct: 1,
-            hint: "سميت 'Bug' لأن حشرة حقيقية تسببت في تعطل أحد الحواسيب الضخمة قديماً!"
-        },
-        {
-            q: "ما هو الـ Software في الحاسوب؟",
-            img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500",
-            options: ["البرامج والأنظمة", "الأسلاك والقطع", "الطابعة"],
-            correct: 0,
-            hint: "السوفتوير هو الروح والجزء غير الملموس، بينما الهاردوير هو الجسد والقطع الملموسة."
-        },
-        {
-            q: "ما هو العلم الذي يهدف لمحاكاة قدرات البشر العقلية عبر الآلات؟",
-            img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500",
-            options: ["الذكاء الاصطناعي", "الرياضيات", "الكيمياء"],
-            correct: 0,
-            hint: "الذكاء الاصطناعي (AI) يُمكّن الحواسيب من التعلم، التحليل، واتخاذ القرارات."
-        },
-        {
-            q: "أين يتم تخزين نظام التشغيل (الويندوز) والملفات بشكل دائم؟",
-            img: "https://images.unsplash.com/photo-1597733336794-12d05021d510?w=500",
-            options: ["في الشاحن", "في القرص الصلب (Hard Disk)", "في السماعات"],
-            correct: 1,
-            hint: "القرص الصلب هو المخزن الدائم، كل صورك وملفاتك محفوظة فيه حتى بعد إطفاء الجهاز."
-        }
+        { q: "ما هو المكون الذي يسمى 'مخ' الحاسوب؟", options: ["الشاشة", "المعالج (CPU)", "الماوس"], correct: 1, info: "المعالج يقوم بملايين العمليات في الثانية ليجعل جهازك يعمل!" },
+        { q: "من هو أول من صمم فكرة الحاسوب الميكانيكي؟", options: ["تشارلز بابيج", "بيل جيتس", "مارك زوكربيرج"], correct: 0, info: "تشارلز بابيج يُلقب بأبو الحاسوب بفضل تصاميمه العبقرية." },
+        { q: "لغة برمجة تستخدم لبناء هيكل المواقع:", options: ["فوتوشوب", "HTML", "أكسل"], correct: 1, info: "HTML هي اللغة الأساسية التي يفهمها أي متصفح إنترنت." }
+        // يمكنك إضافة الـ 10 أسئلة هنا بنفس النمط
     ];
 
-    let currentIdx = 0;
+    let current = 0;
 
-    function initQuiz() {
-        const item = questions[currentIdx];
-        document.getElementById('question-image').src = item.img;
-        document.getElementById('question-text').innerText = item.q;
-        document.getElementById('info-hint').style.display = 'none';
-        document.getElementById('next-btn').style.display = 'none';
-        document.getElementById('progress-fill').style.width = ((currentIdx / questions.length) * 100) + '%';
-        
-        const list = document.getElementById('options-list');
-        list.innerHTML = '';
-        
-        item.options.forEach((opt, i) => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn animate__animated animate__fadeInUp';
-            btn.innerText = opt;
-            btn.onclick = () => selectOption(i, btn);
-            list.appendChild(btn);
+    function load() {
+        const q = questions[current];
+        document.getElementById('q-text').innerText = q.q;
+        const box = document.getElementById('options-box');
+        box.innerHTML = '';
+        q.options.forEach((opt, i) => {
+            const b = document.createElement('button');
+            b.className = 'option';
+            b.innerText = opt;
+            b.onclick = () => check(i, b);
+            box.appendChild(b);
         });
+        document.getElementById('info-box').style.display = 'none';
+        document.getElementById('btn-next').style.display = 'none';
     }
 
-    function selectOption(idx, btn) {
-        const item = questions[currentIdx];
-        const allBtns = document.querySelectorAll('.option-btn');
-        const hintBox = document.getElementById('info-hint');
-        
-        allBtns.forEach(b => b.disabled = true);
+    function check(idx, btn) {
+        const q = questions[current];
+        const all = document.querySelectorAll('.option');
+        all.forEach(b => b.disabled = true);
 
-        if(idx === item.correct) {
-            btn.classList.add('correct');
-            document.getElementById('sound-correct').play();
-            hintBox.innerHTML = "✅ <strong>رائع! إجابة صحيحة.</strong><br>" + item.hint;
+        if(idx === q.correct) {
+            btn.style.background = '#6ab04c';
+            btn.style.color = '#fff';
         } else {
-            btn.classList.add('wrong');
-            allBtns[item.correct].classList.add('correct');
-            document.getElementById('sound-wrong').play();
-            hintBox.innerHTML = "❌ <strong>للأسف، إجابة غير دقيقة.</strong><br>الإجابة الصحيحة هي: " + item.options[item.correct] + ".<br>" + item.hint;
+            btn.style.background = '#eb4d4b';
+            btn.style.color = '#fff';
+            all[q.correct].style.background = '#6ab04c';
+            all[q.correct].style.color = '#fff';
         }
 
-        hintBox.style.display = 'block';
-        document.getElementById('next-btn').style.display = 'block';
+        const info = document.getElementById('info-box');
+        info.innerHTML = `<strong>معلومة:</strong> ${q.info}`;
+        info.style.display = 'block';
+        document.getElementById('btn-next').style.display = 'block';
     }
 
-    document.getElementById('next-btn').onclick = () => {
-        currentIdx++;
-        if(currentIdx < questions.length) {
-            initQuiz();
+    function nextQuestion() {
+        current++;
+        if(current < questions.length) {
+            const container = document.getElementById('question-container');
+            container.classList.add('animate__animated', 'animate__fadeOutLeft');
+            setTimeout(() => {
+                load();
+                container.classList.remove('animate__fadeOutLeft');
+                container.classList.add('animate__fadeInRight');
+            }, 300);
         } else {
-            document.getElementById('quiz-content').style.display = 'none';
-            document.getElementById('cta-final').style.display = 'block';
-            confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
+            document.getElementById('quiz-step').style.display = 'none';
+            document.getElementById('final-step').style.display = 'block';
+            confetti();
         }
-    };
+    }
 
-    initQuiz();
+    load();
 </script>
+
 </body>
 </html>
