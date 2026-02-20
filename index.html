@@ -3,195 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V-2030 | المنصة المتطورة لكتابة العقود</title>
-
-    <meta property="og:title" content="المنصة المتطورة لكتابة العقود V-2030">
-    <meta property="og:description" content="بوابة المحامي القدير والمحترف للصياغة القانونية الرقمية">
-    <meta property="og:image" content="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/gavel.svg">
-    <meta property="og:type" content="website">
-
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>منصة البرامج التخصصية - اختبار الذكاء الاصطناعي</title>
     <style>
         :root {
-            --gold: #c5a059;
-            --dark-blue: #0f172a;
-            --royal-blue: #1e293b;
-            --success: #10b981;
-            --glass: rgba(255, 255, 255, 0.95);
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --light: #f4f7f6;
         }
-
         body {
-            font-family: 'Cairo', sans-serif;
-            background: radial-gradient(circle at top right, var(--royal-blue), var(--dark-blue));
-            margin: 0; padding: 20px; min-height: 100vh; color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
-
-        .container { max-width: 900px; margin: 0 auto; }
-        .v2030-header { text-align: center; color: white; margin-bottom: 40px; }
-        .v2030-header h1 {
-            font-weight: 900; font-size: 2.5em; margin: 10px 0;
-            background: linear-gradient(45deg, #fff, var(--gold));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        .quiz-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
         }
-
-        .badge-certified { background: var(--gold); color: var(--dark-blue); padding: 5px 15px; border-radius: 50px; font-weight: bold; font-size: 0.8em; }
-
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px; }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1); padding: 20px; border-radius: 20px;
-            text-align: center; color: white;
+        header {
+            border-bottom: 2px solid var(--secondary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
         }
-        .stat-val { display: block; font-size: 1.6em; font-weight: 800; color: var(--gold); }
-
-        .main-card { background: var(--glass); border-radius: 30px; padding: 40px; border: 2px solid var(--gold); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
-        .motivation-text { text-align: center; background: #f8fafc; padding: 15px; border-radius: 15px; border-right: 5px solid var(--gold); margin-bottom: 25px; font-style: italic; }
-
-        .legal-table { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
-        .label-box { background: #f1f5f9; padding: 12px 20px; border-radius: 12px 0 0 12px; font-weight: 700; width: 30%; border-right: 4px solid var(--gold); color: var(--royal-blue); }
-        input { width: 100%; padding: 14px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-family: 'Cairo'; transition: 0.3s; }
-        input:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 10px rgba(197, 160, 89, 0.2); }
-
-        .fee-section { background: var(--dark-blue); color: white; padding: 20px; border-radius: 20px; text-align: center; margin: 30px 0; }
-        .fee-amount { font-size: 1.8em; color: var(--gold); font-weight: 900; }
-
-        .btn-lux {
-            background: linear-gradient(45deg, var(--gold), #8e6d2a); color: white;
-            width: 100%; padding: 20px; border: none; border-radius: 15px;
-            font-size: 1.2em; font-weight: 900; cursor: pointer; transition: 0.4s;
+        .header-title { color: var(--primary); margin: 0; font-size: 24px; }
+        .admin-name { color: var(--secondary); font-weight: bold; }
+        .question { font-size: 1.2rem; margin-bottom: 20px; color: #333; }
+        .options { display: grid; gap: 10px; }
+        button {
+            padding: 12px;
+            border: 2px solid var(--secondary);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
         }
-        .btn-lux:hover { transform: scale(1.02); box-shadow: 0 15px 30px rgba(197, 160, 89, 0.4); }
-        .hidden { display: none; }
-
-        @media (max-width: 600px) {
-            .legal-table td { display: block; width: 100%; }
-            .label-box { width: 100%; border-radius: 12px; margin-bottom: 5px; }
+        button:hover { background: var(--secondary); color: white; }
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
         }
+        .info-box { background: #e8f4fd; border-right: 5px solid var(--secondary); padding: 10px; margin-top: 10px; font-size: 0.9rem; }
+        .cta {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff3cd;
+            border: 1px dashed #ffc107;
+            border-radius: 10px;
+            display: none;
+        }
+        .price { font-size: 1.5rem; color: #d35400; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="v2030-header">
-        <span class="badge-certified"><i class="fas fa-check-circle"></i> إصدار 2030 المعتمد</span>
-        <h1>المنصة المتطورة لكتابة العقود</h1>
-        <p>بضغطة زر تحصل على ملف عقد جاهز للطباعة التكنولوجيا في خدمة العدالة</p>
+<div class="quiz-container">
+    <header>
+        <h1 class="header-title">منصة البرامج التخصصية</h1>
+        <p>إدارة: <span class="admin-name">محمد طه عطا المنان</span></p>
+    </header>
+
+    <div id="quiz-box">
+        <div id="question-text" class="question">1. ما الفرق بين البيانات والمعلومات؟</div>
+        <div class="options" id="options-container">
+            <button onclick="checkAnswer(0)">البيانات هي الحقائق الخام، والمعلومات هي بيانات تمت معالجتها</button>
+            <button onclick="checkAnswer(1)">لا يوجد فرق بينهما، كلاهما واحد</button>
+            <button onclick="checkAnswer(2)">المعلومات هي ما نكتبه في الكراسة فقط</button>
+        </div>
+        <div id="feedback" class="feedback"></div>
     </div>
 
-    <div class="stats-grid">
-        <div class="stat-card">
-            <i class="fas fa-user-tie" style="color:var(--gold)"></i>
-            <span class="stat-val" data-target="20000">0</span>
-            <span>زميل مشترك</span>
-        </div>
-        <div class="stat-card" style="background: rgba(16, 185, 129, 0.2);">
-            <i class="fas fa-circle" style="color: #10b981; font-size: 0.6em;"></i>
-            <span class="stat-val" style="color: #10b981;">142</span>
-            <span>متصل الآن</span>
-        </div>
-        <div class="stat-card">
-            <i class="fas fa-file-invoice" style="color:var(--gold)"></i>
-            <span class="stat-val" data-target="95000">0</span>
-            <span>عقد ناجح</span>
-        </div>
-    </div>
-
-    <div class="main-card">
-        <div id="login-step">
-            <div class="motivation-text">"المحاماة رسالة سامية، نجعل الجزء الإجرائي أسرع وأكثر دقة."</div>
-            <h3 style="text-align: center; margin-bottom: 25px;">دخول بوابة التوثيق الآمنة</h3>
-            <input id="lawyer_fullname" placeholder="الاسم الكامل للأستاذ المحامي" style="margin-bottom: 20px;">
-            <button class="btn-lux" onclick="startV2030()">دخول المنصة <i class="fas fa-arrow-left"></i></button>
-        </div>
-
-        <div id="system-step" class="hidden">
-            <h3 id="lawyer_title" style="text-align: center; line-height: 1.6; color: var(--royal-blue);"></h3>
-            
-            <div class="motivation-text" style="background: #fffbeb; font-style: normal;">
-                <i class="fas fa-bolt" style="color: var(--gold);"></i> 
-                <b>تنبيه ذكي:</b> بمجرد ضغطك على "اعتماد"، سيقوم النظام بتوليد صياغة قانونية رصينة تحفظ حقوق كافة الأطراف.
-            </div>
-
-            <table class="legal-table">
-                <tr><td class="label-box">اسم البائع</td><td><input id="s_name"></td></tr>
-                <tr><td class="label-box">رقم الهوية</td><td><input id="s_id"></td></tr>
-                <tr><td class="label-box">اسم المشتري</td><td><input id="b_name"></td></tr>
-                <tr><td class="label-box">رقم الهوية</td><td><input id="b_id"></td></tr>
-                <tr><td class="label-box">الشاهد الأول</td><td><input id="w1"></td></tr>
-                <tr><td class="label-box">الشاهد الثاني</td><td><input id="w2"></td></tr>
-                <tr><td class="label-box">رقم التوثيق</td><td><input id="doc_no"></td></tr>
-                <tr><td class="label-box">التاريخ نصاً</td><td><input id="doc_date" placeholder="مثلاً: الأول من مارس"></td></tr>
-                <tr><td class="label-box">بيانات العقار</td><td><input id="land_details" placeholder="القطعة، المربع، المساحة"></td></tr>
-                <tr><td class="label-box">مبلغ البيع</td><td><input id="price_total"></td></tr>
-            </table>
-
-            <div class="fee-section">
-                <span>رسوم الطباعة واستلام العقد الجاهز (PDF)</span>
-                <div class="fee-amount">10,000 جنيه سوداني</div>
-                <small>دفع آمن - استلام فوري</small>
-            </div>
-
-            <button class="btn-lux" onclick="sendV2030()">
-                <i class="fab fa-whatsapp"></i> اعتماد وإرسال لمركز الطباعة
-            </button>
-        </div>
+    <div id="final-cta" class="cta">
+        <h3>🎉 أحسنت يا بطل!</h3>
+        <p>عالم التكنولوجيا واسع، والذكاء الاصطناعي يبدأ من تعلم الأساسيات.</p>
+        <p><strong>انضم إلينا الآن في كورس برمجة وتصميم المواقع!</strong></p>
+        <p class="price">الرسوم: 50,000 جنيه فقط</p>
+        <p>تواصل معنا عبر واتساب: <a href="https://wa.me/249901946410">0901946410</a></p>
     </div>
 </div>
 
 <script>
-function animateStats() {
-    document.querySelectorAll('.stat-val[data-target]').forEach(s => {
-        const target = +s.getAttribute('data-target');
-        let count = 0;
-        const inc = target / 60;
-        const update = () => {
-            if(count < target) {
-                count += inc;
-                s.innerText = Math.ceil(count).toLocaleString() + "+";
-                setTimeout(update, 20);
-            } else { s.innerText = target.toLocaleString() + "+"; }
-        };
-        update();
-    });
-}
+    const questions = [
+        {
+            q: "1. ما الفرق بين البيانات والمعلومات؟",
+            options: ["البيانات هي الحقائق الخام، والمعلومات هي بيانات تمت معالجتها", "لا يوجد فرق بينهما، كلاهما واحد", "المعلومات هي ما نكتبه في الكراسة فقط"],
+            correct: 0,
+            info: "💡 معلومة: '50' هي بيان، لكن 'درجة حرارة الغرفة 50' هي معلومة مفيدة!"
+        },
+        {
+            q: "2. ما هو الذكاء الاصطناعي ببساطة؟",
+            options: ["روبوت يريد السيطرة على العالم", "قدرة الآلة على محاكاة ذكاء الإنسان وحل المشكلات", "مجرد تطبيق على الموبايل"],
+            correct: 1,
+            info: "💡 معلومة: الذكاء الاصطناعي هو الذي يقترح عليك الفيديوهات التي تحبها في يوتيوب!"
+        },
+        {
+            q: "3. كيف يتم بناء المواقع الإلكترونية؟",
+            options: ["عن طريق السحر", "عن طريق الرسم بالقلم"، "عن طريق لغات البرمجة مثل HTML و CSS"],
+            correct: 2,
+            info: "💡 معلومة: البرمجة هي اللغة التي نتحدث بها مع الحاسوب لنصنع المعجزات!"
+        }
+    ];
 
-// العدادات تعمل الآن فور فتح الصفحة
-window.onload = animateStats;
+    let currentQ = 0;
 
-function startV2030() {
-    const name = document.getElementById('lawyer_fullname').value;
-    if(name.length < 5) { alert("يرجى إدخال الاسم كاملاً"); return; }
-    document.getElementById('login-step').classList.add('hidden');
-    document.getElementById('system-step').classList.remove('hidden');
-    // التعديل المطلوب: أستاذ/ بدلاً من :
-    document.getElementById('lawyer_title').innerHTML = `أهلاً بك الأستاذ المحامي القدير والمحترف أستاذ/ <br><span style="color:var(--gold)">${name}</span>`;
-}
+    function checkAnswer(idx) {
+        const feedback = document.getElementById('feedback');
+        feedback.style.display = 'block';
+        
+        if (idx === questions[currentQ].correct) {
+            feedback.innerHTML = `<span style="color:green">✅ إجابة صحيحة!</span><div class="info-box">${questions[currentQ].info}</div>`;
+        } else {
+            feedback.innerHTML = `<span style="color:red">❌ للأسف، إجابة غير دقيقة.</span><div class="info-box">${questions[currentQ].info}</div>`;
+        }
 
-function sendV2030() {
-    const phone = "0901946410";
-    const get = id => document.getElementById(id).value || "غير مسجل";
-    const lawyer = document.getElementById('lawyer_fullname').value;
+        setTimeout(() => {
+            currentQ++;
+            if (currentQ < questions.length) {
+                showQuestion();
+            } else {
+                document.getElementById('quiz-box').style.display = 'none';
+                document.getElementById('final-cta').style.display = 'block';
+            }
+        }, 3500);
+    }
 
-    const msg = `🏛️ *نظام الطباعة السريع الرقمي - إصدار 2030* \n` +
-                `━━━━━━━━━━━━━━━━\n` +
-                `⚖️ *المحامي المعتمد:* أ. ${lawyer}\n` +
-                `📝 *رقم التوثيق:* ${get('doc_no')}\n` +
-                `📅 *التاريخ:* ${get('doc_date')}\n` +
-                `━━━━━━━━━━━━━━━━\n` +
-                `👤 *طرف أول (بائع):* ${get('s_name')}\n` +
-                `🆔 *هوية:* ${get('s_id')}\n` +
-                `👤 *طرف ثاني (مشتري):* ${get('b_name')}\n` +
-                `🆔 *هوية:* ${get('b_id')}\n` +
-                `📍 *العقار:* ${get('land_details')}\n` +
-                `💰 *القيمة:* ${get('price_total')}\n` +
-                `👥 *الشهود:* ${get('w1')} / ${get('w2')}\n` +
-                `━━━━━━━━━━━━━━━━\n` +
-                `✅ *إقرار:* أوافق على دفع الرسوم (10,000 ج) لاستلام نسخة العقد المعتمدة.`;
-
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-}
+    function showQuestion() {
+        document.getElementById('feedback').style.display = 'none';
+        document.getElementById('question-text').innerText = questions[currentQ].q;
+        const btns = document.querySelectorAll('.options button');
+        btns.forEach((btn, i) => {
+            btn.innerText = questions[currentQ].options[i];
+        });
+    }
 </script>
+
 </body>
 </html>
