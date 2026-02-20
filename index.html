@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار عباقرة الحاسوب - منصة البرامج التخصصية</title>
+    <title>اختبار التكنولوجيا - منصة البرامج التخصصية</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
@@ -16,97 +16,129 @@
             --success: #6ab04c;
             --error: #eb4d4b;
             --dark: #130f40;
+            --light-blue: #e1f5fe;
         }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(45deg, #130f40, #4834d4);
+            background: linear-gradient(135deg, #130f40 0%, #4834d4 100%);
             min-height: 100vh;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #fff;
+            padding: 15px;
         }
 
         .quiz-container {
             background: white;
             color: var(--dark);
-            width: 95%;
-            max-width: 650px;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            width: 100%;
+            max-width: 600px;
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
             text-align: center;
+            position: relative;
         }
 
+        /* رأس الصفحة */
         .header-box {
             background: var(--dark);
             color: white;
             padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            border-bottom: 4px solid var(--accent);
+            border-radius: 20px;
+            margin-bottom: 20px;
+            border-bottom: 5px solid var(--accent);
         }
 
-        .q-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 15px;
-        }
+        .header-box h2 { margin: 0; font-family: 'Cairo'; font-size: 1.5rem; }
+        .header-box p { margin: 5px 0 0; color: var(--accent); font-weight: bold; }
 
-        .option-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            background: #f9f9f9;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .option-btn:hover { background: #f1f1f1; transform: translateY(-2px); }
-        .correct { background: var(--success) !important; color: white; }
-        .wrong { background: var(--error) !important; color: white; }
-
-        .info-hint {
-            background: #e1f5fe;
-            color: #01579b;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-            display: none;
-            border-right: 5px solid var(--primary);
-            text-align: right;
-        }
-
-        .progress-bar {
-            height: 10px;
+        /* شريط التقدم */
+        .progress-container {
+            height: 8px;
             background: #eee;
-            border-radius: 5px;
+            border-radius: 10px;
             margin-bottom: 20px;
             overflow: hidden;
         }
-
         #progress-fill {
             height: 100%;
             background: var(--accent);
             width: 0%;
-            transition: 0.5s;
+            transition: 0.4s;
         }
 
-        .cta-final {
+        /* الصور والأسئلة */
+        .q-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        #question-text { font-size: 1.2rem; margin-bottom: 20px; min-height: 3rem; }
+
+        /* الأزرار */
+        .option-btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            background: #fff;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Tajawal';
+        }
+
+        .option-btn:hover:not(:disabled) { background: #f8f9fa; border-color: var(--secondary); transform: scale(1.02); }
+        .correct { background: var(--success) !important; color: white; border-color: var(--success); }
+        .wrong { background: var(--error) !important; color: white; border-color: var(--error); }
+
+        /* صندوق المعلومات */
+        .info-hint {
+            background: var(--light-blue);
+            color: #01579b;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
             display: none;
-            padding: 20px;
+            border-right: 6px solid var(--primary);
+            text-align: right;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
-        .price { font-size: 2.5rem; color: var(--error); font-weight: 900; }
+        #next-btn {
+            margin-top: 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            display: none;
+        }
+
+        /* النهاية والتحفيز */
+        .cta-final { display: none; padding: 10px; }
+        .price { font-size: 2.8rem; color: var(--error); font-weight: 900; margin: 15px 0; }
+        .whatsapp-btn {
+            background: #25d366;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            display: block;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -114,104 +146,104 @@
     <audio id="sound-correct" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
     <audio id="sound-wrong" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"></audio>
 
-    <div class="quiz-container animate__animated animate__zoomIn">
+    <div class="quiz-container animate__animated animate__fadeIn">
         <div class="header-box">
-            <h2 style="margin:0; font-family:'Cairo'">منصة البرامج التخصصية</h2>
-            <p style="margin:5px 0 0 0">إدارة: <strong>محمد طه عطا المنان</strong></p>
+            <h2>منصة البرامج التخصصية</h2>
+            <p>إدارة: محمد طه عطا المنان</p>
         </div>
 
         <div id="quiz-content">
-            <div class="progress-bar"><div id="progress-fill"></div></div>
+            <div class="progress-container"><div id="progress-fill"></div></div>
             <img id="question-image" src="" class="q-img">
-            <h3 id="question-text">جاري التحميل...</h3>
+            <div id="question-text">جاري تجهيز الأسئلة...</div>
             <div id="options-list"></div>
             <div id="info-hint" class="info-hint animate__animated animate__fadeIn"></div>
-            <button id="next-btn" class="option-btn" style="display:none; background:var(--accent); color:white;">السؤال التالي ⬅️</button>
+            <button id="next-btn" class="option-btn">السؤال التالي ⬅️</button>
         </div>
 
-        <div id="cta-final" class="cta-final">
-            <h1 style="color:var(--success)">تهانينا يا بطل! 🏆</h1>
-            <p>لقد أتممت اختبار الثقافة الرقمية بنجاح.</p>
+        <div id="cta-final" class="cta-final animate__animated animate__zoomIn">
+            <h1 style="color:var(--success)">بطل التكنولوجيا! 🏆</h1>
+            <p>لقد أكملت الاختبار بنجاح. مستقبلك في البرمجة يبدأ من هنا!</p>
             <hr>
-            <h3>كن مبرمجاً ومصمماً محترفاً معنا</h3>
-            <p>كورس برمجة وتصميم المواقع الإلكترونية</p>
+            <h3>كورس برمجة وتصميم المواقع الاحترافي</h3>
+            <p>تعلم البرمجة، التصميم، والذكاء الاصطناعي</p>
             <div class="price">50,000 ج.س</div>
-            <button onclick="window.location.href='https://wa.me/249901946410'" class="option-btn" style="background:#25d366; color:white;">اشترك الآن عبر واتساب 🟢</button>
-            <p style="font-size:0.9rem">رقم التواصل: 0901946410</p>
+            <a href="https://wa.me/249901946410" class="whatsapp-btn">اشترك الآن عبر واتساب 🟢</a>
+            <p style="margin-top:15px; color:#666">تواصل: 0901946410</p>
         </div>
     </div>
 
 <script>
     const questions = [
         {
-            q: "من هو الملقب بـ 'أبو الحاسوب' ومخترع أول آلة حاسبة ميكانيكية؟",
+            q: "من هو مخترع فكرة 'المحرك التحليلي' والملقب بأبو الحاسوب؟",
             img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500",
-            options: ["تشارلز بابيج", "ستيف جوبز", "بيل جيتس"],
+            options: ["تشارلز بابيج", "ألبرت أينشتاين", "توماس إديسون"],
             correct: 0,
-            hint: "لمحة: تشارلز بابيج صمم 'المحرك التحليلي' في القرن التاسع عشر، وهو الأساس الذي قامت عليه الحواسيب الحديثة."
+            hint: "تشارلز بابيج هو عالم رياضيات بريطاني صمم أول حاسوب ميكانيكي عام 1837م."
         },
         {
-            q: "ما هو 'المخ' الفعلي للحاسوب الذي يقوم بمعالجة البيانات؟",
+            q: "ما هو الجزء المسؤول عن معالجة كافة العمليات الحسابية والمنطقية؟",
             img: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=500",
-            options: ["الهاردسك", "المعالج CPU", "الشاشة"],
+            options: ["الشاشة", "المعالج (CPU)", "القرص الصلب"],
             correct: 1,
-            hint: "لمحة: المعالج ينفذ ملايين العمليات في الثانية الواحدة، وكلما زادت سرعته زاد أداء الحاسوب."
+            hint: "المعالج هو 'عقل' الجهاز، بدونه لا يمكن للحاسوب تنفيذ أي أمر برمجِي."
         },
         {
-            q: "كيف يفهم الحاسوب الأوامر؟ ما هي لغته الأم؟",
+            q: "الحاسوب لا يفهم لغات البشر، هو يتعامل فقط مع الرقمين:",
             img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500",
-            options: ["اللغة الإنجليزية", "النظام الثنائي (0 و 1)", "لغة الإشارة"],
+            options: ["1 و 10", "0 و 1", "5 و 9"],
             correct: 1,
-            hint: "لمحة: تسمى لغة الآلة، حيث يمثل الـ 1 وجود تيار كهربائي والـ 0 عدم وجوده."
+            hint: "يسمى هذا بـ 'النظام الثنائي'، حيث الـ 1 تعني وجود نبضة كهربائية والـ 0 تعني عدم وجودها."
         },
         {
-            q: "أي من هذه اللغات تستخدم لبناء هيكل المواقع الإلكترونية؟",
+            q: "أي لغة برمجة هي المسؤولة عن بناء هيكل ومحتوى المواقع؟",
             img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500",
-            options: ["HTML", "فوتوشوب", "أكسل"],
+            options: ["HTML", "فوتوشوب", "واتساب"],
             correct: 0,
-            hint: "لمحة: HTML هي الهيكل العظمي لأي موقع تراه على الإنترنت."
+            hint: "لغة HTML هي حجر الأساس لكل المواقع الإلكترونية التي تتصفحها يومياً."
         },
         {
-            q: "ما هي وظيفة الذاكرة العشوائية (RAM)؟",
+            q: "ما هي الذاكرة التي تفقد محتواها بمجرد إغلاق الجهاز؟",
             img: "https://images.unsplash.com/photo-1562976540-1502c2145186?w=500",
-            options: ["حفظ الملفات للأبد", "تخزين البيانات المؤقتة لتسريع العمل", "تلوين الصور"],
-            correct: 1,
-            hint: "لمحة: الـ RAM تشبه 'المكتب' الذي تضع عليه أوراقك أثناء العمل، بمجرد إغلاق الحاسوب تُمسح بياناتها."
+            options: ["الفلاش ميموري", "الهاردسك", "الذاكرة العشوائية RAM"],
+            correct: 2,
+            hint: "الـ RAM تخزن البيانات التي يحتاجها المعالج 'الآن'، وهي سريعة جداً لكنها مؤقتة."
         },
         {
-            q: "أول مبرمجة في التاريخ كانت امرأة، فمن هي؟",
+            q: "من هي أول مبرمجة حاسوب في تاريخ البشرية؟",
             img: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500",
-            options: ["أدا لوفليس", "مارجريت تاتشر", "أوبرا وينفري"],
+            options: ["أدا لوفليس", "ماري كوري", "إليزابيث"],
             correct: 0,
-            hint: "لمحة: أدا لوفليس كتبت أول خوارزمية في التاريخ ليتم تنفيذها بواسطة آلة بابيج."
+            hint: "أدا لوفليس كتبت أول خوارزمية في التاريخ عام 1843، قبل اختراع الحواسيب الكهربائية بمئة عام!"
         },
         {
-            q: "ماذا تسمى عملية البحث عن الأخطاء في البرمجة وإصلاحها؟",
+            q: "ماذا يسمى الخطأ البرمجي الذي يمنع البرنامج من العمل؟",
             img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500",
-            options: ["التصميم", "التنقيح (Debugging)", "الطباعة"],
+            options: ["فيروس", "Bug (حشرة)", "تحديث"],
             correct: 1,
-            hint: "لمحة: جاء المصطلح عندما تعطل جهاز قديم بسبب 'حشرة' (Bug) حقيقية عالقة بالداخل!"
+            hint: "سميت 'Bug' لأن حشرة حقيقية تسببت في تعطل أحد الحواسيب الضخمة قديماً!"
         },
         {
-            q: "ما هو الـ Software؟",
+            q: "ما هو الـ Software في الحاسوب؟",
             img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500",
-            options: ["الأجزاء الملموسة كالماوس", "البرامج والتعليمات غير الملموسة", "أسلاك التوصيل"],
-            correct: 1,
-            hint: "لمحة: الحاسوب بلا سوفتوير هو مجرد قطعة حديد لا فائدة منها."
-        },
-        {
-            q: "ما هو هدف 'الذكاء الاصطناعي'؟",
-            img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500",
-            options: ["جعل الآلة تفكر وتتعلم كالبشر", "زيادة وزن الحاسوب", "صناعة ألعاب فقط"],
+            options: ["البرامج والأنظمة", "الأسلاك والقطع", "الطابعة"],
             correct: 0,
-            hint: "لمحة: الذكاء الاصطناعي اليوم يدخل في الطب، الفضاء، وحتى قيادة السيارات."
+            hint: "السوفتوير هو الروح والجزء غير الملموس، بينما الهاردوير هو الجسد والقطع الملموسة."
         },
         {
-            q: "أين تُخزن ملفاتك وصورك بشكل دائم في الحاسوب؟",
+            q: "ما هو العلم الذي يهدف لمحاكاة قدرات البشر العقلية عبر الآلات؟",
+            img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500",
+            options: ["الذكاء الاصطناعي", "الرياضيات", "الكيمياء"],
+            correct: 0,
+            hint: "الذكاء الاصطناعي (AI) يُمكّن الحواسيب من التعلم، التحليل، واتخاذ القرارات."
+        },
+        {
+            q: "أين يتم تخزين نظام التشغيل (الويندوز) والملفات بشكل دائم؟",
             img: "https://images.unsplash.com/photo-1597733336794-12d05021d510?w=500",
-            options: ["في الشاشة", "في القرص الصلب (Hard Disk)", "في الكيبورد"],
+            options: ["في الشاحن", "في القرص الصلب (Hard Disk)", "في السماعات"],
             correct: 1,
-            hint: "لمحة: القرص الصلب يحفظ بياناتك حتى لو انقطعت الكهرباء عن الجهاز."
+            hint: "القرص الصلب هو المخزن الدائم، كل صورك وملفاتك محفوظة فيه حتى بعد إطفاء الجهاز."
         }
     ];
 
@@ -238,21 +270,21 @@
     }
 
     function selectOption(idx, btn) {
-        const correctIdx = questions[currentIdx].correct;
-        const hintBox = document.getElementById('info-hint');
+        const item = questions[currentIdx];
         const allBtns = document.querySelectorAll('.option-btn');
+        const hintBox = document.getElementById('info-hint');
         
         allBtns.forEach(b => b.disabled = true);
 
-        if(idx === correctIdx) {
+        if(idx === item.correct) {
             btn.classList.add('correct');
             document.getElementById('sound-correct').play();
-            hintBox.innerHTML = "✨ <strong>إجابة صحيحة!</strong> " + questions[currentIdx].hint;
+            hintBox.innerHTML = "✅ <strong>رائع! إجابة صحيحة.</strong><br>" + item.hint;
         } else {
             btn.classList.add('wrong');
-            allBtns[correctIdx].classList.add('correct');
+            allBtns[item.correct].classList.add('correct');
             document.getElementById('sound-wrong').play();
-            hintBox.innerHTML = "❌ <strong>إجابة خاطئة!</strong> الإجابة الصحيحة هي: " + questions[currentIdx].options[correctIdx] + ".<br>" + questions[currentIdx].hint;
+            hintBox.innerHTML = "❌ <strong>للأسف، إجابة غير دقيقة.</strong><br>الإجابة الصحيحة هي: " + item.options[item.correct] + ".<br>" + item.hint;
         }
 
         hintBox.style.display = 'block';
@@ -266,7 +298,7 @@
         } else {
             document.getElementById('quiz-content').style.display = 'none';
             document.getElementById('cta-final').style.display = 'block';
-            confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+            confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
         }
     };
 
