@@ -3,55 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار التكنولوجيا المرح - منصة البرامج التخصصية</title>
+    <title>اختبار عباقرة الحاسوب - منصة البرامج التخصصية</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #6c5ce7;
-            --card-bg: #ffffff;
-            --accent: #fdcb6e;
-            --success: #00b894;
-            --error: #d63031;
+            --primary: #4834d4;
+            --secondary: #686de0;
+            --accent: #f0932b;
+            --success: #6ab04c;
+            --error: #eb4d4b;
+            --dark: #130f40;
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            font-family: 'Tajawal', sans-serif;
+            background: linear-gradient(45deg, #130f40, #4834d4);
+            min-height: 100vh;
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            overflow-x: hidden;
+            color: #fff;
         }
 
-        .quiz-card {
-            background: var(--card-bg);
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            width: 90%;
-            max-width: 500px;
+        .quiz-container {
+            background: white;
+            color: var(--dark);
+            width: 95%;
+            max-width: 650px;
             padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             text-align: center;
-            position: relative;
         }
 
-        .platform-header {
-            background: #2d3436;
+        .header-box {
+            background: var(--dark);
             color: white;
-            padding: 10px;
+            padding: 15px;
             border-radius: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            border-bottom: 4px solid var(--accent);
         }
 
-        .q-image {
+        .q-img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
             border-radius: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .option-btn {
@@ -59,35 +62,51 @@
             width: 100%;
             padding: 15px;
             margin: 10px 0;
-            border: 2px solid #dfe6e9;
-            border-radius: 50px;
-            background: white;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            background: #f9f9f9;
             font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.2s;
             font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .option-btn:hover {
-            transform: scale(1.03);
-            background: #f1f2f6;
-        }
+        .option-btn:hover { background: #f1f1f1; transform: translateY(-2px); }
+        .correct { background: var(--success) !important; color: white; }
+        .wrong { background: var(--error) !important; color: white; }
 
-        .correct { background: var(--success) !important; color: white; border-color: var(--success); }
-        .wrong { background: var(--error) !important; color: white; border-color: var(--error); }
-
-        .cta-box {
+        .info-hint {
+            background: #e1f5fe;
+            color: #01579b;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
             display: none;
-            animation: bounceIn 1s;
+            border-right: 5px solid var(--primary);
+            text-align: right;
         }
 
-        .price-tag {
-            font-size: 2rem;
-            color: #e17055;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        .progress-bar {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
         }
 
-        .footer-info { font-size: 0.8rem; color: #636e72; margin-top: 15px; }
+        #progress-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: 0.5s;
+        }
+
+        .cta-final {
+            display: none;
+            padding: 20px;
+        }
+
+        .price { font-size: 2.5rem; color: var(--error); font-weight: 900; }
     </style>
 </head>
 <body>
@@ -95,102 +114,163 @@
     <audio id="sound-correct" src="https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3"></audio>
     <audio id="sound-wrong" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-preview.mp3"></audio>
 
-    <div class="quiz-card animate__animated animate__fadeIn">
-        <div class="platform-header">
-            <h3 style="margin:0">منصة البرامج التخصصية</h3>
-            <small>إدارة: محمد طه عطا المنان</small>
+    <div class="quiz-container animate__animated animate__zoomIn">
+        <div class="header-box">
+            <h2 style="margin:0; font-family:'Cairo'">منصة البرامج التخصصية</h2>
+            <p style="margin:5px 0 0 0">إدارة: <strong>محمد طه عطا المنان</strong></p>
         </div>
 
-        <div id="game-body">
-            <img id="q-img" src="https://img.freepik.com/free-vector/data-processing-concept-illustration_114360-4611.jpg" class="q-image">
-            <h2 id="q-text" class="question">ما هي "البيانات" في عالمنا؟</h2>
-            <div id="options">
-                </div>
+        <div id="quiz-content">
+            <div class="progress-bar"><div id="progress-fill"></div></div>
+            <img id="question-image" src="" class="q-img">
+            <h3 id="question-text">جاري التحميل...</h3>
+            <div id="options-list"></div>
+            <div id="info-hint" class="info-hint animate__animated animate__fadeIn"></div>
+            <button id="next-btn" class="option-btn" style="display:none; background:var(--accent); color:white;">السؤال التالي ⬅️</button>
         </div>
 
-        <div id="cta-body" class="cta-box">
-            <img src="https://img.freepik.com/free-vector/web-development-programmer-engineering-and-coding-websites-augmented-reality-interface-screens-developer-project-engineer-programming-software-application-design-cartoon-illustration_107791-3863.jpg" class="q-image">
-            <h2 style="color:var(--bg-color)">مبارك! أنت جاهز للانطلاق 🚀</h2>
-            <p>لديك الشغف لتصبح مبرمجاً محترفاً ومصمماً مبدعاً.</p>
-            <div class="price-tag">50,000 ج.س</div>
-            <p>سجل الآن في كورس برمجة وتصميم المواقع</p>
-            <button onclick="window.location.href='https://wa.me/249901946410'" class="option-btn" style="background: #25d366; color:white;">تواصل معنا واتساب 🟢</button>
+        <div id="cta-final" class="cta-final">
+            <h1 style="color:var(--success)">تهانينا يا بطل! 🏆</h1>
+            <p>لقد أتممت اختبار الثقافة الرقمية بنجاح.</p>
+            <hr>
+            <h3>كن مبرمجاً ومصمماً محترفاً معنا</h3>
+            <p>كورس برمجة وتصميم المواقع الإلكترونية</p>
+            <div class="price">50,000 ج.س</div>
+            <button onclick="window.location.href='https://wa.me/249901946410'" class="option-btn" style="background:#25d366; color:white;">اشترك الآن عبر واتساب 🟢</button>
+            <p style="font-size:0.9rem">رقم التواصل: 0901946410</p>
         </div>
-
-        <div class="footer-info">0901946410 | الخرطوم</div>
     </div>
 
 <script>
-    const quizData = [
+    const questions = [
         {
-            q: "البيانات مثل (الطوب)، فماذا تسمى (العمارة) الجاهزة؟",
-            img: "https://img.freepik.com/free-vector/information-abstract-concept-vector-illustration-data-management-processing-knowledge-extraction-database-analysis-meaningful-info-digital-literacy-personal-education-abstract-metaphor_335657-2856.jpg",
-            options: ["معلومات", "رماد", "كهرباء"],
-            correct: 0
+            q: "من هو الملقب بـ 'أبو الحاسوب' ومخترع أول آلة حاسبة ميكانيكية؟",
+            img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500",
+            options: ["تشارلز بابيج", "ستيف جوبز", "بيل جيتس"],
+            correct: 0,
+            hint: "لمحة: تشارلز بابيج صمم 'المحرك التحليلي' في القرن التاسع عشر، وهو الأساس الذي قامت عليه الحواسيب الحديثة."
         },
         {
-            q: "الذكاء الاصطناعي (AI) هو محاولة جعل الحاسوب يحاكي:",
-            img: "https://img.freepik.com/free-vector/artificial-intelligence-ai-concept-illustration_114360-6981.jpg",
-            options: ["المكنسة الكهربائية", "عقل الإنسان", "الآلة الحاسبة القديمة"],
-            correct: 1
+            q: "ما هو 'المخ' الفعلي للحاسوب الذي يقوم بمعالجة البيانات؟",
+            img: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=500",
+            options: ["الهاردسك", "المعالج CPU", "الشاشة"],
+            correct: 1,
+            hint: "لمحة: المعالج ينفذ ملايين العمليات في الثانية الواحدة، وكلما زادت سرعته زاد أداء الحاسوب."
         },
         {
-            q: "أفضل لغة لبناء هيكل أي موقع إلكتروني هي:",
-            img: "https://img.freepik.com/free-vector/web-design-production-services-concept-illustration_114360-4910.jpg",
-            options: ["اللغة الصينية", "لغة HTML", "لغة الإشارة"],
-            correct: 1
+            q: "كيف يفهم الحاسوب الأوامر؟ ما هي لغته الأم؟",
+            img: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=500",
+            options: ["اللغة الإنجليزية", "النظام الثنائي (0 و 1)", "لغة الإشارة"],
+            correct: 1,
+            hint: "لمحة: تسمى لغة الآلة، حيث يمثل الـ 1 وجود تيار كهربائي والـ 0 عدم وجوده."
+        },
+        {
+            q: "أي من هذه اللغات تستخدم لبناء هيكل المواقع الإلكترونية؟",
+            img: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=500",
+            options: ["HTML", "فوتوشوب", "أكسل"],
+            correct: 0,
+            hint: "لمحة: HTML هي الهيكل العظمي لأي موقع تراه على الإنترنت."
+        },
+        {
+            q: "ما هي وظيفة الذاكرة العشوائية (RAM)؟",
+            img: "https://images.unsplash.com/photo-1562976540-1502c2145186?w=500",
+            options: ["حفظ الملفات للأبد", "تخزين البيانات المؤقتة لتسريع العمل", "تلوين الصور"],
+            correct: 1,
+            hint: "لمحة: الـ RAM تشبه 'المكتب' الذي تضع عليه أوراقك أثناء العمل، بمجرد إغلاق الحاسوب تُمسح بياناتها."
+        },
+        {
+            q: "أول مبرمجة في التاريخ كانت امرأة، فمن هي؟",
+            img: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500",
+            options: ["أدا لوفليس", "مارجريت تاتشر", "أوبرا وينفري"],
+            correct: 0,
+            hint: "لمحة: أدا لوفليس كتبت أول خوارزمية في التاريخ ليتم تنفيذها بواسطة آلة بابيج."
+        },
+        {
+            q: "ماذا تسمى عملية البحث عن الأخطاء في البرمجة وإصلاحها؟",
+            img: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500",
+            options: ["التصميم", "التنقيح (Debugging)", "الطباعة"],
+            correct: 1,
+            hint: "لمحة: جاء المصطلح عندما تعطل جهاز قديم بسبب 'حشرة' (Bug) حقيقية عالقة بالداخل!"
+        },
+        {
+            q: "ما هو الـ Software؟",
+            img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500",
+            options: ["الأجزاء الملموسة كالماوس", "البرامج والتعليمات غير الملموسة", "أسلاك التوصيل"],
+            correct: 1,
+            hint: "لمحة: الحاسوب بلا سوفتوير هو مجرد قطعة حديد لا فائدة منها."
+        },
+        {
+            q: "ما هو هدف 'الذكاء الاصطناعي'؟",
+            img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500",
+            options: ["جعل الآلة تفكر وتتعلم كالبشر", "زيادة وزن الحاسوب", "صناعة ألعاب فقط"],
+            correct: 0,
+            hint: "لمحة: الذكاء الاصطناعي اليوم يدخل في الطب، الفضاء، وحتى قيادة السيارات."
+        },
+        {
+            q: "أين تُخزن ملفاتك وصورك بشكل دائم في الحاسوب؟",
+            img: "https://images.unsplash.com/photo-1597733336794-12d05021d510?w=500",
+            options: ["في الشاشة", "في القرص الصلب (Hard Disk)", "في الكيبورد"],
+            correct: 1,
+            hint: "لمحة: القرص الصلب يحفظ بياناتك حتى لو انقطعت الكهرباء عن الجهاز."
         }
     ];
 
-    let currentStep = 0;
+    let currentIdx = 0;
 
-    function loadQuestion() {
-        const item = quizData[currentStep];
-        document.getElementById('q-img').src = item.img;
-        document.getElementById('q-text').innerText = item.q;
-        const optionsDiv = document.getElementById('options');
-        optionsDiv.innerHTML = '';
+    function initQuiz() {
+        const item = questions[currentIdx];
+        document.getElementById('question-image').src = item.img;
+        document.getElementById('question-text').innerText = item.q;
+        document.getElementById('info-hint').style.display = 'none';
+        document.getElementById('next-btn').style.display = 'none';
+        document.getElementById('progress-fill').style.width = ((currentIdx / questions.length) * 100) + '%';
         
-        item.options.forEach((opt, index) => {
+        const list = document.getElementById('options-list');
+        list.innerHTML = '';
+        
+        item.options.forEach((opt, i) => {
             const btn = document.createElement('button');
             btn.className = 'option-btn animate__animated animate__fadeInUp';
             btn.innerText = opt;
-            btn.onclick = () => check(index, btn);
-            optionsDiv.appendChild(btn);
+            btn.onclick = () => selectOption(i, btn);
+            list.appendChild(btn);
         });
     }
 
-    function check(idx, btn) {
-        if(idx === quizData[currentStep].correct) {
+    function selectOption(idx, btn) {
+        const correctIdx = questions[currentIdx].correct;
+        const hintBox = document.getElementById('info-hint');
+        const allBtns = document.querySelectorAll('.option-btn');
+        
+        allBtns.forEach(b => b.disabled = true);
+
+        if(idx === correctIdx) {
             btn.classList.add('correct');
             document.getElementById('sound-correct').play();
-            currentStep++;
-            setTimeout(() => {
-                if(currentStep < quizData.length) {
-                    loadQuestion();
-                } else {
-                    finish();
-                }
-            }, 1000);
+            hintBox.innerHTML = "✨ <strong>إجابة صحيحة!</strong> " + questions[currentIdx].hint;
         } else {
             btn.classList.add('wrong');
+            allBtns[correctIdx].classList.add('correct');
             document.getElementById('sound-wrong').play();
-            btn.classList.add('animate__shakeX');
-            setTimeout(() => btn.classList.remove('animate__shakeX'), 500);
+            hintBox.innerHTML = "❌ <strong>إجابة خاطئة!</strong> الإجابة الصحيحة هي: " + questions[currentIdx].options[correctIdx] + ".<br>" + questions[currentIdx].hint;
         }
+
+        hintBox.style.display = 'block';
+        document.getElementById('next-btn').style.display = 'block';
     }
 
-    function finish() {
-        document.getElementById('game-body').style.display = 'none';
-        document.getElementById('cta-body').style.display = 'block';
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-    }
+    document.getElementById('next-btn').onclick = () => {
+        currentIdx++;
+        if(currentIdx < questions.length) {
+            initQuiz();
+        } else {
+            document.getElementById('quiz-content').style.display = 'none';
+            document.getElementById('cta-final').style.display = 'block';
+            confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+        }
+    };
 
-    loadQuestion();
+    initQuiz();
 </script>
 </body>
 </html>
